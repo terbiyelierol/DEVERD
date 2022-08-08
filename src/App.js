@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './deverd-logo-vektor.svg';
 import './App.css';
 
 function App() {

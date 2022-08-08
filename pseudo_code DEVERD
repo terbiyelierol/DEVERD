@@ -1,0 +1,48 @@
+1-Opening Page
+	1.1 - NavBar
+		1.1.1 - Logo(/)
+		1.1.2 - Search Bar
+		1.1.3 - Login(/login) / Logout - Redirect (/)
+		1.1.4 - Create Account(createaccount) / Create Post (/createpost)
+		1.1.5 - After Login - DashBoard(/dashboard)
+	1.2- Login Component
+		1.2.1-UserName and Password Validation
+		1.2.2-JWT Token creation
+		1.2.3-GitHub passport Login
+	1.3- Sign-in Component
+		1.3.1 - Create user with credentials. Send it to the User DB
+		1.3.2 - GitHub passport Login		
+
+2-POST Create
+	2.1 - Create POST(/createpost)
+		2.1.1 - Create Post DB
+		2.1.2 - Create Post Route
+		2.1.3 - Create Post Controllers (create, index)
+			2.1.3.1 - AWS or Cloudinary implementation for photos for create controller
+			2.1.3.2 - Show the post listing page(/) - index all users' post here -  Redirect here 
+			2.1.3.3 - Show the post dashboard(/dashboard) - index the logged in user post in this page 
+		2.1.4 - Create Post Show Controller(/username/postID)
+			2.1.4.1 - Create Like Button and send the post to the User Database
+			2.1.4.2 - Create Bookmark Button and send the post to the User Database
+			2.1.4.3 - Show the user who published the post and by using the name go to user profile(/username)
+				2.1.4.3.1 - Post Logged in user or user Comment (/username/postId)
+				2.1.4.3.2 - index Comment (/username/postId)
+						
+3-USER Dashboard 
+	3.1 - User Dashboard(/dashboard)
+		3.1.1 - Create a route for DashBoard
+		3.1.2 - Create dashboard controllers(index user posts, edit users post, delete users post)
+		3.1.3 - Index the Logged in User Profile
+		3.1.4 - Index the Logged in User Posts
+		3.1.5 - Edit the Logged in User Posts
+		3.1.6 - Delete Logged in the User Posts
+		
+4-USER Profile
+	4.1 - User Profile(/username)
+		4.1.1 - Create a route for User Profile
+		4.1.2 - Index the User Profile
+		4.1.3 - Index the User Posts
+		4.1.4 - Follow the User and save it to user following 
+		4.1.5 - Save user to the to be followed user follower 
+
+	
