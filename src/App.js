@@ -1,23 +1,26 @@
-import logo from './deverd-logo-vektor.svg';
 import './App.css';
+import React, { useState } from 'react';
+import Landing from './pages/Landing/Landing';
+import Login from './pages/Login/Login';
+import { Route, Routes, Redirect } from 'react-router-dom';
+import CreateUser from './pages/CreateUser/CreateUser';
+
+
 
 function App() {
+  const [user,setUser] = useState(null)
+
+  const userLog = (incomingUser) =>{
+    setUser(incomingUser)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <Routes>
+        <Route path='/' element={<Landing user={user}/>}/>
+        <Route path='/login' element={<Login user={userLog}/>}/>
+        <Route path='/createuser' element={<CreateUser user={userLog}/>}/>
+     </Routes> 
     </div>
   );
 }
