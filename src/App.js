@@ -9,7 +9,7 @@ import CreateUser from './pages/CreateUser/CreateUser';
 
 function App() {
   const [user,setUser] = useState(null)
-
+  console.log(user)
   const userLog = (incomingUser) =>{
     setUser(incomingUser)
   }
@@ -17,9 +17,9 @@ function App() {
   return (
     <div className="App">
      <Routes>
-        <Route path='/' element={<Landing user={user}/>}/>
-        <Route path='/login' element={<Login user={userLog}/>}/>
-        <Route path='/createuser' element={<CreateUser user={userLog}/>}/>
+        <Route path='/' element={<Landing/>}/>
+        <Route path='/login' element={<Login userLog={userLog}/>}/>
+        <Route path='/createuser' element={<CreateUser userLog={userLog}/>}/>
      </Routes> 
     </div>
   );

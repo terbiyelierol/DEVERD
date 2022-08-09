@@ -10,15 +10,38 @@ export default function NewUser(props){
     confirm: '',
     error: ''
   })
+  console.log(props.userLog)
 
-  const handleSign = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    try {
+      // 1. POST our new user info to the server
+      const fetchResponse = await fetch('/api/users/createuser', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({username: newUser.username, email: newUser.email, password: newUser.password,})
+      })
+      // 2. Check "fetchResponse.ok". False means status code was 4xx from the server/controller action
+      if (!fetchResponse.ok) throw new Error('Fetch failed - Bad request')   
+      
+      // 3. decode the response into JS object
+      let token = await fetchResponse.json()
+      localStorage.setItem('token', token) // 4. stick the serv resp into the user's browser
+
+      const userDoc = JSON.parse(atob(token.split('.')[1])).user; // 5. Decode the token + put user document into state
+      props.userLog(userDoc)
+      
+
+    } catch (err) {
+      console.log("SignupForm error", err)
+      setNewuser({ error: 'Sign Up Failed - Try Again' });
+    }
   }
-  
+
   
 
   return(
-    <form className="mt-5 d-flex flex-column align-items-center" onSubmit={this.handleSubmit} >
+    <form className="mt-5 d-flex flex-column align-items-center" onSubmit={handleSubmit}>
         <div class="mb-3 col-2">
           <label for="username" class="form-label">User Name</label>
           <input onChange={(e) =>
@@ -51,7 +74,7 @@ export default function NewUser(props){
                confirm: e.target.value,
              })} name="confirm" type="password" class="form-control"  value={newUser.confirm} id="exampleInputPassword1"/>
         </div>
-        <button onClick={handleSign} type="submit" class="btn btn-primary col-2">Create</button>
+        <button type="submit" class="btn btn-primary col-2">Create</button>
     </form>
   )
 }
