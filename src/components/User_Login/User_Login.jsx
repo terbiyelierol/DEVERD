@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 import '../User_Login/User_Login.css'
 
 export default function User_Login(props){
@@ -8,6 +9,7 @@ export default function User_Login(props){
     password: '',
     error: ''
   })
+  const navigate = useNavigate()
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -27,9 +29,11 @@ export default function User_Login(props){
 
       const userDoc = JSON.parse(atob(token.split('.')[1])).user; // 5. Decode the token + put user document into state
       props.userLog(userDoc)
+      navigate('../main')
+
     } catch (err) {
       console.log("SignupForm error", err)
-      this.setState({ error: 'Sign Up Failed - Try Again' });
+      setLoguser({ error: 'Sign Up Failed - Try Again' });
     }
   }
 
@@ -52,7 +56,7 @@ export default function User_Login(props){
                password: e.target.value,
              })} name="password" type="password" class="form-control" id="exampleInputPassword1"/>
         </div>
-        <button type="submit" class="btn btn-primary col-2">Create</button>
+        <button type="submit" class="btn btn-primary col-2">Login</button>
     </form>
     </div>
   )

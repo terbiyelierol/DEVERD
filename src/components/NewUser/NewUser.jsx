@@ -1,6 +1,7 @@
 import React from "react";
 import '../NewUser/NewUser.css'
 import { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 
 export default function NewUser(props){
   const [newUser,setNewuser] = useState({
@@ -10,7 +11,7 @@ export default function NewUser(props){
     confirm: '',
     error: ''
   })
-  console.log(props.userLog)
+  const navigate = useNavigate();
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -30,7 +31,7 @@ export default function NewUser(props){
 
       const userDoc = JSON.parse(atob(token.split('.')[1])).user; // 5. Decode the token + put user document into state
       props.userLog(userDoc)
-      
+      navigate('../login')
 
     } catch (err) {
       console.log("SignupForm error", err)
@@ -39,8 +40,8 @@ export default function NewUser(props){
   }
 
   
-
-  return(
+  const disable = newUser.password !== newUser.confirm;
+  return(    
     <form className="mt-5 d-flex flex-column align-items-center" onSubmit={handleSubmit}>
         <div class="mb-3 col-2">
           <label for="username" class="form-label">User Name</label>
@@ -74,7 +75,7 @@ export default function NewUser(props){
                confirm: e.target.value,
              })} name="confirm" type="password" class="form-control"  value={newUser.confirm} id="exampleInputPassword1"/>
         </div>
-        <button type="submit" class="btn btn-primary col-2">Create</button>
+        <button type="submit" class="btn btn-primary col-2" disabled={disable}>Create</button>
     </form>
   )
 }
