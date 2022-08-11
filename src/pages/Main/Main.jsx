@@ -10,17 +10,17 @@ console.log('erol')
 export default function Main (props){
 
   let [posts, setPosts] = useState([])
+  console.log('post',posts)
 
   async function getAllPosts() {
-    // try {
-      let fetchResponse = await fetch("/api/posts")
-      let response = await fetchResponse.json()
+      let fetchResponse = await fetch("api/posts/main")
+      console.log(fetchResponse)
+      let response =  await fetchResponse.json()
       console.log(response)
-      setPosts(response)
-  //   } catch(err) {
-  //     console.log("couldn't fetch posts")
-  //   }
+      
   }
+
+  console.log(getAllPosts())
 
   useEffect(() => {
     getAllPosts()

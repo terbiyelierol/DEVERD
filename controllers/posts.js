@@ -3,6 +3,7 @@ const Post = require('../models/post')
 
 module.exports = {
   create,
+  index,
 }
 
 async function create(req, res) {
@@ -11,6 +12,15 @@ async function create(req, res) {
     const post = await Post.create({title: req.body.title, body: req.body.body, createdBy:user})
     res.status(200).json(post); // send it to the frontend
   } catch (err) {
+    res.status(400).json(err);
+  }
+}
+
+async function index(req, res) {
+  try {
+    let posts = await Post.find()
+    res.status(200).json(posts)
+  } catch(err) {
     res.status(400).json(err);
   }
 }
