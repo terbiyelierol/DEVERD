@@ -7,7 +7,9 @@ export default function UserNavBar(props){
   return(
     <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid ">
-        <Logo/>
+          <Link to="/main">
+            <Logo/>
+          </Link>
           <form class="d-flex" role="search">
             <input class="form-control me-2 col-4" type="search" placeholder="Search" aria-label="Search"/>
             <button class="btn btn-outline-primary" type="submit">Search</button>

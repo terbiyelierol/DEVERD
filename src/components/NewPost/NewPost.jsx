@@ -44,7 +44,9 @@ export default function NewPost(props){
   return(
     <div className="CreatePost">
       <div className="d-flex justify-content-between">
-      <Logo/>
+          <Link to="/main">
+            <Logo/>
+          </Link>
       <Link to='/'><button className="btn btn-light" onClick={props.handleLogOut}>Logout</button></Link>
       </div> 
       <br/>
