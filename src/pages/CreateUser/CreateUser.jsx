@@ -7,7 +7,7 @@ export default function CreateUser(props){
  
   return(
     <div className="CreateUser">
-      <NavBar/>
+      <NavBar user = {props.user}/>
       <NewUser userLog={props.userLog}/>
     </div>
   )

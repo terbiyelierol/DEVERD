@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import {useNavigate} from 'react-router-dom'
-import '../User_Login/User_Login.css'
+import '../UserLogin/UserLogin.css'
 
-export default function User_Login(props){
+export default function UserLogin(props){
   const [logUser,setLoguser] = useState({
     username: '',
     password: '',
@@ -25,8 +25,7 @@ export default function User_Login(props){
       if (!fetchResponse.ok) throw new Error('Fetch failed - Bad request')
 
       let token = await fetchResponse.json() // 3. decode fetch response: get jwt token from srv
-      localStorage.setItem('token', token);  // 4. Stick token into localStorage
-
+      localStorage.getItem('token', token);  // 4. Stick token into localStorage
       const userDoc = JSON.parse(atob(token.split('.')[1])).user; // 5. Decode the token + put user document into state
       props.userLog(userDoc)
       navigate('../main')
@@ -40,23 +39,23 @@ export default function User_Login(props){
   return(
     <div className="User_Login">
       <form className="mt-5 d-flex flex-column align-items-center" onSubmit={handleSubmit}>
-        <div class="mb-3 col-2">
-          <label for="username" class="form-label">User Name</label>
+        <div className="mb-3 col-2">
+          <label for="username" className="form-label">User Name</label>
           <input onChange={(e) =>
              setLoguser({
                ...logUser,
                username: e.target.value,
-             })} name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+             })} name="username" type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
         </div>
-        <div class="mb-3 col-2">
-          <label for="password" class="form-label">Password</label>
+        <div className="mb-3 col-2">
+          <label for="password" className="form-label">Password</label>
           <input onChange={(e) =>
              setLoguser({
                ...logUser,
                password: e.target.value,
-             })} name="password" type="password" class="form-control" id="exampleInputPassword1"/>
+             })} name="password" type="password" className="form-control" id="exampleInputPassword1"/>
         </div>
-        <button type="submit" class="btn btn-primary col-2">Login</button>
+        <button type="submit" className="btn btn-primary col-2">Login</button>
     </form>
     </div>
   )

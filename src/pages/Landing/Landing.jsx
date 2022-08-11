@@ -6,7 +6,7 @@ import '../Landing/Landing.css'
 export default function Landing(props){
   return(
     <div className="Landing">
-      <NavBar/>
+      <NavBar user = {props.user}/>
     </div>
   )
 }

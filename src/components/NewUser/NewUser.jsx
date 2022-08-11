@@ -30,6 +30,7 @@ export default function NewUser(props){
       localStorage.setItem('token', token) // 4. stick the serv resp into the user's browser
 
       const userDoc = JSON.parse(atob(token.split('.')[1])).user; // 5. Decode the token + put user document into state
+      console.log(userDoc)
       props.userLog(userDoc)
       navigate('../login')
 
@@ -43,39 +44,39 @@ export default function NewUser(props){
   const disable = newUser.password !== newUser.confirm;
   return(    
     <form className="mt-5 d-flex flex-column align-items-center" onSubmit={handleSubmit}>
-        <div class="mb-3 col-2">
-          <label for="username" class="form-label">User Name</label>
+        <div className="mb-3 col-2">
+          <label for="username" className="form-label">User Name</label>
           <input onChange={(e) =>
              setNewuser({
                ...newUser,
                username: e.target.value,
-             })} name="username" type="text" class="form-control" value={newUser.username} id="exampleInputEmail1" aria-describedby="emailHelp"/>
+             })} name="username" type="text" className="form-control" value={newUser.username} id="exampleInputEmail1" aria-describedby="emailHelp"/>
         </div>
-        <div class="mb-3 col-2">
-          <label for="email" class="form-label">Email address</label>
+        <div className="mb-3 col-2">
+          <label for="email" className="form-label">Email address</label>
           <input onChange={(e) =>
              setNewuser({
                ...newUser,
                email: e.target.value,
-             })} name="email" type="email" class="form-control" value={newUser.email} id="exampleInputEmail1" aria-describedby="emailHelp"/>
+             })} name="email" type="email" className="form-control" value={newUser.email} id="exampleInputEmail1" aria-describedby="emailHelp"/>
         </div>
-        <div class="mb-3 col-2">
-          <label for="password" class="form-label">Password</label>
+        <div className="mb-3 col-2">
+          <label for="password" className="form-label">Password</label>
           <input onChange={(e) =>
              setNewuser({
                ...newUser,
                password: e.target.value,
-             })} name="password" type="password" class="form-control" value={newUser.password} id="exampleInputPassword1"/>
+             })} name="password" type="password" className="form-control" value={newUser.password} id="exampleInputPassword1"/>
         </div>
-        <div class="mb-3 col-2">
-          <label for="password" class="form-label">Confirm Password</label>
+        <div className="mb-3 col-2">
+          <label for="password" className="form-label">Confirm Password</label>
           <input onChange={(e) =>
              setNewuser({
                ...newUser,
                confirm: e.target.value,
-             })} name="confirm" type="password" class="form-control"  value={newUser.confirm} id="exampleInputPassword1"/>
+             })} name="confirm" type="password" className="form-control"  value={newUser.confirm} id="exampleInputPassword1"/>
         </div>
-        <button type="submit" class="btn btn-primary col-2" disabled={disable}>Create</button>
+        <button type="submit" className="btn btn-primary col-2" disabled={disable}>Create</button>
     </form>
   )
 }

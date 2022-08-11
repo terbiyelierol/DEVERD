@@ -1,11 +1,11 @@
 import React from "react";
 import '../Main/Main.css'
-import NavBar from "../../components/NavBar/NavBar";
+import UserNavBar from "../../components/UserNavBar/UserNavBar";
 
 export default function Main (props){
   return(
     <div className="Main">
-      <NavBar/>
+      <UserNavBar user = {props.user} handleLogOut={props.handleLogOut}/>
     </div>
   )
 }

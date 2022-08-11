@@ -1,0 +1,15 @@
+.title-place{
+  font-size: 30px;
+  font-weight: 900;
+  text-align: center;
+}
+.body-place{
+  font-size: 30px;
+  font-weight: 900;
+  
+}
+.CreatePost {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem;
+}

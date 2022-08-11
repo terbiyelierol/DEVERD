@@ -1,11 +1,11 @@
 import React from "react";
+import '../UserNavBar/UserNavBar.css'
 import Logo from '../Logo/Logo'
-import '../NavBar/NavBar.css'
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
-export default function NavBar(props){
+export default function UserNavBar(props){
   return(
-      <nav className="navbar navbar-expand-lg bg-light">
+    <nav className="navbar navbar-expand-lg bg-light">
         <div className="container-fluid ">
         <Logo/>
           <form class="d-flex" role="search">
@@ -19,10 +19,13 @@ export default function NavBar(props){
             <div className="collapse navbar-collapse " id="navbarNavDropdown"> 
               <ul className="navbar-nav navFlex">
                 <li className="nav-item">
-                  <Link to='/login'><button className="btn btn-light">Login</button></Link>
+                  <Link to='/'><button className="btn btn-light" onClick={props.handleLogOut}>Logout</button></Link>
                 </li>
                 <li className="nav-item">
-                <Link to='/createuser'><button className="btn btn-outline-primary">Create Account</button></Link>
+                  <Link to='/createpost'><button className="btn btn-outline-primary">Create Post</button></Link>
+                </li>
+                <li className="nav-item">
+                  <Link to='/id'><button className="btn btn-outline-primary">DashBoard</button></Link>
                 </li>
               </ul>
             </div>
@@ -30,5 +33,4 @@ export default function NavBar(props){
         </div>
       </nav>
   )
-  
 }

@@ -24,6 +24,7 @@ async function create(req, res) {
 
 
 async function login(req,res){
+ 
   try{
     const user = await User.findOne({username:req.body.username})
     // check password. if it's bad throw an error.
