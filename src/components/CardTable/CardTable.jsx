@@ -5,11 +5,7 @@ import PostCard from '../PostCard/PostCard';
 export default function CardTable(props){
   return(
     <div className="CardTable">
-      <PostCard/>
-      <PostCard/>
-      <PostCard/>
-      <PostCard/>
+      <PostCard post={props.post}/>
     </div>
   )
-  
 }

@@ -6,13 +6,11 @@ export default function PostCard (props){
     <div className="PostCard col-6 mt-5">
       <div className="card text-center">
           <div className="card-header">
-            Featured
+          <h1 className="card-title">{props.post.title}</h1>
           </div>
           <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <p className="card-text">{props.post.body}</p>
             {/* <a href="#" class="btn btn-primary">Go somewhere</a> */}
-
           </div>
           <div className="card-footer d-flex flex-row justify-content-center text-muted gap-2">
             <div className="d-flex flex-column align-items-center col-2">

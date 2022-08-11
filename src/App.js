@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import Main from './pages/Main/Main';
+import DashBoard from './pages/DashBoard/DashBoard'
 import CreateUser from './pages/CreateUser/CreateUser';
 import CreatePost from './pages/CreatePost/CreatePost';
 import { Route, Routes } from 'react-router-dom';
@@ -34,6 +35,8 @@ function App() {
         <Route path='/createuser' element={<CreateUser user={user} userLog={userLog}/>}/>
         <Route path='/main' element={<Main user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path='/createpost' element={<CreatePost user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
+        {/* <Route path='dashboard' element={<DashBoard user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/> */}
+        <Route path=':username' element={<DashBoard user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
      </Routes> 
     </div>
   );

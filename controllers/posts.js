@@ -4,6 +4,7 @@ const Post = require('../models/post')
 module.exports = {
   create,
   index,
+  userIndex,
 }
 
 async function create(req, res) {
@@ -19,6 +20,15 @@ async function create(req, res) {
 async function index(req, res) {
   try {
     let posts = await Post.find()
+    res.status(200).json(posts)
+  } catch(err) {
+    res.status(400).json(err);
+  }
+}
+
+async function userIndex(req, res) {
+  try {
+    let posts = await Post.findById(req.body.user)
     res.status(200).json(posts)
   } catch(err) {
     res.status(400).json(err);

@@ -14,13 +14,11 @@ export default function Main (props){
 
   async function getAllPosts() {
       let fetchResponse = await fetch("api/posts/main")
-      console.log(fetchResponse)
       let response =  await fetchResponse.json()
       console.log(response)
-      
+      setPosts(response)
   }
 
-  console.log(getAllPosts())
 
   useEffect(() => {
     getAllPosts()
@@ -29,7 +27,10 @@ export default function Main (props){
   return(
     <div className="Main">
       <UserNavBar user = {props.user} handleLogOut={props.handleLogOut}/>
-      <CardTable />
+      {posts.map(post=>{
+        return <CardTable key={post.title} post={post}/>
+      })}
+     
     </div>
   )
 }
