@@ -4,6 +4,8 @@ import UserNavBar from "../../components/UserNavBar/UserNavBar";
 import UserPostCard from "../../components/UserPostCard/UserPostCard";
 import { useState,useEffect } from "react";
 
+
+
 export default function DashBoard(props){
   let [userPosts, setUserPosts] = useState([])
 
@@ -14,6 +16,13 @@ export default function DashBoard(props){
       setUserPosts(response)
   }
 
+//   async function deleteUserPosts() {
+//     let fetchResponse = await fetch("api/posts/:username/:postId")
+//     let response =  await fetchResponse.json()
+//     console.log(response)
+//     setUserPosts(response)
+// }
+
 
   useEffect(() => {
     getUserPosts()
@@ -21,7 +30,7 @@ export default function DashBoard(props){
   return(
     <div className="DashBoard">
       <UserNavBar user = {props.user}/>
-      <UserPostCard/>
+      {userPosts.map(userPost=><UserPostCard data={userPost}/>)}
     </div>
   )
 }
