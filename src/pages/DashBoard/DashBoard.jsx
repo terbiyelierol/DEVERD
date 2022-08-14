@@ -8,9 +8,18 @@ import { useState,useEffect } from "react";
 
 export default function DashBoard(props){
   let [userPosts, setUserPosts] = useState([])
-
+  let userToken = localStorage.getItem('token')
+  
   async function getUserPosts() {
-      let fetchResponse = await fetch("api/posts/:username")
+
+      let fetchResponse = await fetch("/api/posts/:username",{
+        method: 'GET',
+        headers: { 
+          // "Content-Type": "application/json",
+          'Authorization':'Bearer '+ userToken },
+      }
+      )
+      console.log(fetchResponse)
       let response =  await fetchResponse.json()
       console.log(response)
       setUserPosts(response)
@@ -23,14 +32,14 @@ export default function DashBoard(props){
 //     setUserPosts(response)
 // }
 
-
   useEffect(() => {
     getUserPosts()
   }, [])
+
   return(
     <div className="DashBoard">
       <UserNavBar user = {props.user}/>
-      {userPosts.map(userPost=><UserPostCard data={userPost}/>)}
+      {userPosts.map(userPost=><UserPostCard data={userPost} user={props.user}/>)}
     </div>
   )
 }

@@ -20,7 +20,7 @@ export default function NewUser(props){
       const fetchResponse = await fetch('/api/users/createuser', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({username: newUser.username, email: newUser.email, password: newUser.password,})
+        body: JSON.stringify({username: newUser.username, email: newUser.email, password: newUser.password})
       })
       // 2. Check "fetchResponse.ok". False means status code was 4xx from the server/controller action
       if (!fetchResponse.ok) throw new Error('Fetch failed - Bad request')   

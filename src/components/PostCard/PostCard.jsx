@@ -1,12 +1,13 @@
 import React from "react";
 import '../PostCard/PostCard.css'
+import { Link } from "react-router-dom";
 
 export default function PostCard (props){
   return(
     <div className="PostCard col-6 mt-5">
       <div className="card text-center">
           <div className="card-header">
-          <h1 className="card-title">{props.post.title}</h1>
+          <Link to={`${props.post._id}`}><h1 className="card-title">{props.post.title}</h1></Link>
           </div>
           <div className="card-body">
             <p className="card-text">{props.post.body}</p>

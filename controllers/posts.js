@@ -5,17 +5,19 @@ module.exports = {
   create,
   index,
   userIndex,
+  postShow
 }
 
 async function create(req, res) {
   try {
     const user = await User.findById(req.body.user)
-    const post = await Post.create({title: req.body.title, body: req.body.body, createdBy:user})
+    const post = await Post.create({title: req.body.title, body: req.body.body, createdBy:user,}) 
     res.status(200).json(post); // send it to the frontend
   } catch (err) {
     res.status(400).json(err);
   }
 }
+
 
 async function index(req, res) {
   try {
@@ -27,14 +29,22 @@ async function index(req, res) {
 }
 
 async function userIndex(req, res) {
-  console.log(req)
   try {
-    const user = await User.findById()
-   
-    let posts = await Post.find(user)
-   
+    const user = await User.findById(req.user)
+    let posts = await Post.find({createdBy:user})
     res.status(200).json(posts)
   } catch(err) {
+    res.status(400).json(err);
+  }
+}
+
+async function postShow(req,res){
+  try{
+    const idPost = req.params.id
+    let posts = await Post.findById(idPost)
+    console.log(posts)
+    res.status(200).json(posts)
+  }catch(err){
     res.status(400).json(err);
   }
 }

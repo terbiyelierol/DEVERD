@@ -5,6 +5,7 @@ import CardTable from "../../components/CardTable/CardTable";
 import { useState,useEffect } from "react";
 
 
+
 console.log('erol')
 
 export default function Main (props){
@@ -30,7 +31,6 @@ export default function Main (props){
       {posts.map(post=>{
         return <CardTable key={post.title} post={post}/>
       })}
-     
     </div>
   )
 }
