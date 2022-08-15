@@ -14,6 +14,8 @@ export default function PostPage (props){
   let [singlePosts, setSinglePosts] = useState([])
   const param = useParams()
 
+ 
+
   async function getSinglePosts() {
       let fetchResponse = await fetch(`/api/posts/${param.username}/${param.id}`,{
         method: 'GET',
@@ -23,6 +25,7 @@ export default function PostPage (props){
       })
       let response =  await fetchResponse.json()
       setSinglePosts(response)
+      props.postId(param.id)
   }
   console.log(singlePosts)
   useEffect(() => {
@@ -32,7 +35,7 @@ export default function PostPage (props){
   return(
     <>
       <UserNavBar user = {props.user}/>
-      <PostShow singlePosts={singlePosts} postId={props.postId}/>
+      <PostShow singlePosts={singlePosts} />
     </>
   )
 }

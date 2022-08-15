@@ -27,13 +27,6 @@ export default function DashBoard(props){
   }
 
     
-  const deletePost=(postId)=>{
-    console.log(postId)
-    console.log(userPosts)
-  }
-
-  console.log(deletePost())
-  
   useEffect(() => {
     getUserPosts()
   }, [])
@@ -41,7 +34,7 @@ export default function DashBoard(props){
   return(
     <div className="DashBoard">
       <UserNavBar user = {props.user}/>
-      {userPosts.map(userPost=><UserPostCard deletePost={deletePost} data={userPost} user={props.user}/>)}
+      {userPosts.map(userPost=><UserPostCard  data={userPost} user={props.user}/>)}
     </div>
   )
 }
