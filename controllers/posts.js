@@ -5,7 +5,8 @@ module.exports = {
   create,
   index,
   userIndex,
-  postShow
+  postShow,
+  postDelete
 }
 
 async function create(req, res) {
@@ -42,6 +43,18 @@ async function postShow(req,res){
   try{
     const idPost = req.params.id
     let posts = await Post.findById(idPost)
+    console.log(posts)
+    res.status(200).json(posts)
+  }catch(err){
+    res.status(400).json(err);
+  }
+}
+
+
+async function postDelete(req,res){
+  try{
+    const idPost = req.params.id
+    let posts = await Post.findOneAndDelete(idPost)
     console.log(posts)
     res.status(200).json(posts)
   }catch(err){

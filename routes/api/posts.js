@@ -6,5 +6,6 @@ router.post('/createpost', postsCtrl.create)
 router.get('/main', postsCtrl.index)
 router.get('/:username', postsCtrl.userIndex)
 router.get('/:username/:id', postsCtrl.postShow)
+router.delete('/:username/:id', postsCtrl.postDelete)
 
 module.exports = router;

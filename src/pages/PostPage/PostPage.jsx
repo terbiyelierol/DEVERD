@@ -32,7 +32,7 @@ export default function PostPage (props){
   return(
     <>
       <UserNavBar user = {props.user}/>
-      <PostShow singlePosts={singlePosts}/>
+      <PostShow singlePosts={singlePosts} postId={props.postId}/>
     </>
   )
 }

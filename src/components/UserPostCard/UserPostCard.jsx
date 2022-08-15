@@ -1,6 +1,9 @@
 import React from "react";
 import '../UserPostCard/UserPostCard'
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+
 
 export default function UserPostCard(props){
   return(
@@ -17,7 +20,7 @@ export default function UserPostCard(props){
         </div></Link>
           <div className="card-footer d-flex flex-row justify-content-center text-muted gap-2">
             <div className="d-flex flex-column align-items-center col-2">
-              <button type="submit" className="btn btn-dark text-light">Delete</button>
+              <button onClick={props.deletePost()} className="btn btn-dark text-light">Delete</button>
             </div>
             <div className="d-flex flex-column align-items-center justify-content-center col-2">
               <button type="submit" className="btn btn-dark text-light">Edit</button>
