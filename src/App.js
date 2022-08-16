@@ -14,17 +14,11 @@ import {useNavigate} from 'react-router-dom'
 
 function App() {
   const [user,setUser] = useState(null)
-  const [id,setId] = useState(null)
  
-  const postId = (incomingId) =>{
-    setId(incomingId)
-  }
-  console.log(id,"ididid")
 
   const userLog = (incomingUser) =>{
     setUser(incomingUser)
   }
-  console.log(user,"usususususu")
   
   const navigate = useNavigate()
 
@@ -45,7 +39,7 @@ function App() {
         <Route path='/main' element={<Main user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path='/createpost' element={<CreatePost user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username' element={<DashBoard user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
-        <Route path=':username/:id' element={<PostPage postId = {postId} user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
+        <Route path=':username/:id' element={<PostPage user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
      </Routes> 
     </div>
   );

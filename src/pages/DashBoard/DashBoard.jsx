@@ -3,6 +3,7 @@ import '../DashBoard/DashBoard.css'
 import UserNavBar from "../../components/UserNavBar/UserNavBar";
 import UserPostCard from "../../components/UserPostCard/UserPostCard";
 import { useState,useEffect } from "react";
+import {useParams} from 'react-router-dom'
 
 
 
@@ -10,6 +11,7 @@ import { useState,useEffect } from "react";
 export default function DashBoard(props){
   let [userPosts, setUserPosts] = useState([])
   let userToken = localStorage.getItem('token')
+  const param = useParams()
 
 
 
@@ -34,7 +36,7 @@ export default function DashBoard(props){
   return(
     <div className="DashBoard">
       <UserNavBar user = {props.user}/>
-      {userPosts.map(userPost=><UserPostCard  data={userPost} user={props.user}/>)}
+      {userPosts.map((userPost,i)=><UserPostCard key={i} data={userPost} userPosts={userPosts} user={props.user}/>)}
     </div>
   )
 }

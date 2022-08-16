@@ -52,9 +52,10 @@ async function postShow(req,res){
 
 
 async function postDelete(req,res){
+  console.log(req.params.id)
   try{
     const idPost = req.params.id
-    let posts = await Post.findOneAndDelete(idPost)
+    let posts = await Post.findByIdAndDelete(idPost)
     console.log(posts)
     res.status(200).json(posts)
   }catch(err){

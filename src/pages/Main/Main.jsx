@@ -12,12 +12,14 @@ export default function Main (props){
 
   let [posts, setPosts] = useState([])
   console.log('post',posts)
-
+  console.log("Working ")
   async function getAllPosts() {
+    
       let fetchResponse = await fetch("api/posts/main")
       let response =  await fetchResponse.json()
       console.log(response)
       setPosts(response)
+      console.log(posts)
   }
 
 
@@ -28,8 +30,8 @@ export default function Main (props){
   return(
     <div className="Main">
       <UserNavBar user = {props.user} handleLogOut={props.handleLogOut}/>
-      {posts.map(post=>{
-        return <CardTable key={post.title} post={post}/>
+      {posts.map((post,i)=>{
+        return <CardTable key={i} post={post}/>
       })}
     </div>
   )
