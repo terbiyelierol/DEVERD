@@ -7,14 +7,17 @@ import DashBoard from './pages/DashBoard/DashBoard'
 import CreateUser from './pages/CreateUser/CreateUser';
 import CreatePost from './pages/CreatePost/CreatePost';
 import PostPage from './pages/PostPage/PostPage';
+import EditPost from './pages/EditPost/EditPost'
 import { Route, Routes } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 
 
 
 function App() {
   const [user,setUser] = useState(null)
- 
+  const [singlePosts,setSinglePosts] = useState([])
+  const param = useParams() 
 
   const userLog = (incomingUser) =>{
     setUser(incomingUser)
@@ -28,6 +31,18 @@ function App() {
     navigate('../')
   }
 
+  async function getSinglePosts(user,iden,pro) {
+    let fetchResponse = await fetch(`/api/posts/${user}/${pro}/edit`,{
+      method: 'GET',
+      headers: { 
+        "Content-Type": "string",
+        body:iden },
+    })
+    let response =  await fetchResponse.json()
+    console.log(response)
+    setSinglePosts(response)
+    
+  }
  
   
   return (
@@ -38,8 +53,9 @@ function App() {
         <Route path='/createuser' element={<CreateUser user={user} userLog={userLog}/>}/>
         <Route path='/main' element={<Main user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path='/createpost' element={<CreatePost user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
-        <Route path=':username' element={<DashBoard user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
+        <Route path=':username' element={<DashBoard getSinglePosts={getSinglePosts} user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username/:id' element={<PostPage user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
+        <Route path=':username/:id/edit' element={<EditPost user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
      </Routes> 
     </div>
   );

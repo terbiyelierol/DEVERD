@@ -11,13 +11,9 @@ export default function NewPost(props){
     body: "",
     user:props.user._id
   })
-  console.log(newPost)
-  console.log(props.user._id)
+
   const navigate = useNavigate()
 
-  // const handleID = (id)=>{
-  //   setNewPost()
-  // }
 
   const handlePost = async(evt)=>{
     evt.preventDefault()

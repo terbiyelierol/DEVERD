@@ -7,5 +7,7 @@ router.get('/main', postsCtrl.index)
 router.get('/:username', postsCtrl.userIndex)
 router.get('/:username/:id', postsCtrl.postShow)
 router.delete('/:username/:id', postsCtrl.postDelete)
+router.get('/:username/:id/edit', postsCtrl.postEditShow)
+router.patch('/:username/:id', postsCtrl.postEdit)
 
 module.exports = router;

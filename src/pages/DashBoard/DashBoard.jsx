@@ -36,7 +36,7 @@ export default function DashBoard(props){
   return(
     <div className="DashBoard">
       <UserNavBar user = {props.user}/>
-      {userPosts.map((userPost,i)=><UserPostCard key={i} data={userPost} userPosts={userPosts} user={props.user}/>)}
+      {userPosts.map((userPost,i)=><UserPostCard key={i} getSinglePosts={props.getSinglePosts} data={userPost} userPosts={userPosts} user={props.user} getAllPost={getUserPosts}/>)}
     </div>
   )
 }

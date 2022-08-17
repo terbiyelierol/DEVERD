@@ -2,7 +2,7 @@ import React from "react";
 import '../UserPostCard/UserPostCard'
 import { Link } from "react-router-dom";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+
 
 export default function UserPostCard(props){
   const param = useParams()
@@ -16,8 +16,11 @@ export default function UserPostCard(props){
         body:param.id },
     })
     let deleteResponse =  await fetchDelete.json()
-    console.log(deleteResponse)    
+    console.log(deleteResponse)
+    props.getAllPost()
+    navigate(`../${props.user.username}`)    
   }
+  
 
   return(
     <div className="UserPostCard col-6 mt-5">
@@ -32,12 +35,12 @@ export default function UserPostCard(props){
           </div>
         </div></Link>
           <div className="card-footer d-flex flex-row justify-content-center text-muted gap-2">
-          <Link to={`${param.username}`}><div className="d-flex flex-column align-items-center col-2">
+            <div className="d-flex flex-column align-items-center col-2">
               <button onClick={deleteSinglePost} className="btn btn-dark text-light">Delete</button>
-            </div></Link>
-            <div className="d-flex flex-column align-items-center justify-content-center col-2">
-              <button type="submit" className="btn btn-dark text-light">Edit</button>
             </div>
+            <Link to={`${props.data._id}/edit`}><div className="d-flex flex-column align-items-center justify-content-center col-2">
+              <button onClick={()=>props.getSinglePosts(param.username,param.id,props.data._id)} className="btn btn-dark text-light">Edit</button>
+            </div></Link>
           </div>
       </div>
     </div>

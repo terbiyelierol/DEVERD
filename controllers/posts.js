@@ -6,7 +6,9 @@ module.exports = {
   index,
   userIndex,
   postShow,
-  postDelete
+  postDelete,
+  postEditShow,
+  postEdit
 }
 
 async function create(req, res) {
@@ -58,6 +60,30 @@ async function postDelete(req,res){
     let posts = await Post.findByIdAndDelete(idPost)
     console.log(posts)
     res.status(200).json(posts)
+  }catch(err){
+    res.status(400).json(err);
+  }
+}
+
+async function postEditShow(req,res){
+  console.log(req.params.id)
+  try{
+    const idPost = req.params.id
+    let postShow = await Post.findById(idPost)
+    console.log(postShow)
+    res.status(200).json(postShow)
+  }catch(err){
+    res.status(400).json(err);
+  }
+}
+
+async function postEdit(req,res){
+  console.log(req.params.id)
+  try{
+    const idPost = req.params.id
+    let postShow = await Post.findByIdAndUpdate(idPost)
+    console.log(postShow)
+    res.status(200).json(postShow)
   }catch(err){
     res.status(400).json(err);
   }
