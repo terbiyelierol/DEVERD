@@ -78,10 +78,9 @@ async function postEditShow(req,res){
 }
 
 async function postEdit(req,res){
-  console.log(req.params.id)
   try{
     const idPost = req.params.id
-    let postShow = await Post.findByIdAndUpdate(idPost)
+    let postShow = await Post.findByIdAndUpdate(idPost,req.body)
     console.log(postShow)
     res.status(200).json(postShow)
   }catch(err){

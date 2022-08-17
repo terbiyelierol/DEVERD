@@ -6,10 +6,11 @@ import { useState } from "react";
 export default function EditPost(props){
 
   const param = useParams()
+  console.log(props.singlePosts)
   
   return(
     <>
-    <EditCard singlePosts={props.singlePosts} />
+    <EditCard singlePosts={props.singlePosts} handleLogOut={props.handleLogOut} user={props.user} />
     </>
   )
 }
