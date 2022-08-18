@@ -41,7 +41,7 @@ function App() {
     let response =  await fetchResponse.json()
     console.log(response)
     setSinglePosts(response)
-    
+    navigate(`../${user.username}/${singlePosts._id}/edit`)
   }
  
   

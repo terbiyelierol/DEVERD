@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Post = require('../models/post')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const SALT_ROUNDS = 6;
@@ -6,6 +7,7 @@ const SALT_ROUNDS = 6;
 module.exports = {
   create,
   login,
+  postBookMark
 }
 async function create(req, res) {
   try {
@@ -32,6 +34,19 @@ async function login(req,res){
      // if we got to this line, password is ok. give user a new token.
     const token = jwt.sign({ user }, process.env.SECRET,{ expiresIn: '24h' });
     res.status(200).json(token)
+  }catch(err){
+    res.status(400).json('Bad Credentials');
+  }
+}
+
+async function postBookMark(req,res){
+  console.log(req.body)
+  try{
+    let user = await User.findById(req.body.user)
+    user.bookmarks.push(req.body.postId)
+    await user.save()
+    console.log(user)
+    res.status(200).json(user)
   }catch(err){
     res.status(400).json('Bad Credentials');
   }

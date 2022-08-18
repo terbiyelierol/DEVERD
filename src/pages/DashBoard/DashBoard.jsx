@@ -34,9 +34,18 @@ export default function DashBoard(props){
   }, [])
 
   return(
-    <div className="DashBoard">
+    <div className="DashBoard ">
       <UserNavBar user = {props.user}/>
-      {userPosts.map((userPost,i)=><UserPostCard key={i} getSinglePosts={props.getSinglePosts} data={userPost} userPosts={userPosts} user={props.user} getAllPost={getUserPosts}/>)}
+        <main className="d-flex flex-row justify-content-center align-items-center">
+          <div className="col-7">
+            {userPosts.map((userPost,i)=><UserPostCard key={i} getSinglePosts={props.getSinglePosts} data={userPost} userPosts={userPosts} user={props.user} getAllPost={getUserPosts}/>)}
+          </div>
+          <div className="col-5">
+            <button className="btn btn-dark text-light">Like Posts</button>
+            <br/>
+            <button className="btn btn-dark text-light mt-5">BookMarks</button>
+          </div>
+        </main>
     </div>
   )
 }

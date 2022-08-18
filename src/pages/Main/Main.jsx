@@ -31,7 +31,7 @@ export default function Main (props){
     <div className="Main">
       <UserNavBar user = {props.user} handleLogOut={props.handleLogOut}/>
       {posts.map((post,i)=>{
-        return <CardTable key={i} post={post}/>
+        return <CardTable key={i} post={post} user = {props.user}/>
       })}
     </div>
   )

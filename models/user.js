@@ -16,7 +16,8 @@ const userSchema = new Schema({
     minLength: 3,
     required: true
   },
-  posts: [{ type: mongoose.Types.ObjectId, ref: 'Post' }],
+  bookmarks: [{ type: mongoose.Types.ObjectId, ref: 'Post' }],
+  likes: [{ type: mongoose.Types.ObjectId, ref: 'Post' }],
 }, {
   timestamps: true,
   // A cool mongoose trick to not send passwords to clients! (even though they'll be hashed)
