@@ -14,14 +14,44 @@ export default function PostCard (props){
       })
       let bookMarkResponse =  await fetchBookMark.json()
       console.log(bookMarkResponse)
-      props.getAllPost()
       navigate('../main')  
     }  
     catch (err){
       console.log(err)
     }
-      
   }
+
+  async function likePost(id,userId) { 
+    try{
+      let fetchLike = await fetch(`/api/users/likePost`,{
+        method: 'PATCH',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({postId:id,user:userId})
+      })
+      let likeResponse =  await fetchLike.json()
+      console.log(likeResponse)
+      navigate('../main')  
+    }  
+    catch (err){
+      console.log(err)
+    }
+
+    try{
+      let fetchPostLike = await fetch(`/api/posts/userLikes`,{
+        method: 'PATCH',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({postId:id,user:userId})
+      })
+      let userLikeResponse =  await fetchPostLike.json()
+      console.log(userLikeResponse)
+      navigate('../main')  
+    }  
+    catch (err){
+      console.log(err)
+    }
+
+  }
+
   return(
     <div className="PostCard col-6 mt-5">
       <div className="card text-center">
@@ -33,7 +63,7 @@ export default function PostCard (props){
           </div>
           <div className="card-footer d-flex flex-row justify-content-center text-muted gap-2">
             <div className="d-flex flex-column align-items-center col-2">
-              <button type="submit" className="btn btn-dark text-light like">Like</button>
+              <button onClick={()=>likePost(props.post._id, props.user._id)} className="btn btn-dark text-light like">Like</button>
               <small>number</small>
             </div>
             {/* <div className="d-flex flex-column align-items-center justify-content-center col-2">

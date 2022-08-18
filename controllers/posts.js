@@ -8,7 +8,8 @@ module.exports = {
   postShow,
   postDelete,
   postEditShow,
-  postEdit
+  postEdit,
+  postLikes
 }
 
 async function create(req, res) {
@@ -87,3 +88,24 @@ async function postEdit(req,res){
     res.status(400).json(err);
   }
 }
+
+async function postLikes(req,res){
+  console.log(req.body)
+  try{
+    let user = await User.findById(req.body.user)
+    let post = await Post.findById(req.body.postId)
+    console.log(post)
+    if(!post.likedBy.includes(req.body.user)){
+      post.likedBy.push(user)
+      await post.save()
+      console.log(post)
+      res.status(200).json(post)
+    }else{
+      res.status(400).json('Bad Credential');
+    }
+    }catch(err){
+      res.status(400).json(err);
+    }
+}
+
+

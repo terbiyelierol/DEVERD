@@ -9,5 +9,6 @@ router.get('/:username/:id', postsCtrl.postShow)
 router.delete('/:username/:id', postsCtrl.postDelete)
 router.get('/:username/:id/edit', postsCtrl.postEditShow)
 router.patch('/:username/:id', postsCtrl.postEdit)
+router.patch('/userLikes', postsCtrl.postLikes)
 
 module.exports = router;

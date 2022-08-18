@@ -7,7 +7,9 @@ const postSchema = new Schema({
   createdBy: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User'
-  }},{
+  },
+  likedBy: [{ type: mongoose.Types.ObjectId, ref: 'User' }]},
+  {
     timestamps: true
   })
 

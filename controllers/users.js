@@ -7,7 +7,8 @@ const SALT_ROUNDS = 6;
 module.exports = {
   create,
   login,
-  postBookMark
+  postBookMark,
+  postLike
 }
 async function create(req, res) {
   try {
@@ -40,14 +41,33 @@ async function login(req,res){
 }
 
 async function postBookMark(req,res){
-  console.log(req.body)
   try{
     let user = await User.findById(req.body.user)
-    user.bookmarks.push(req.body.postId)
-    await user.save()
-    console.log(user)
-    res.status(200).json(user)
+    if(!user.bookmarks.includes(req.body.postId)){
+      user.bookmarks.push(req.body.postId)
+      await user.save()
+      console.log(user)
+      res.status(200).json(user)
+    }else{
+      res.status(400).json('Bad Credentials');
+    }
   }catch(err){
     res.status(400).json('Bad Credentials');
   }
 }
+
+async function postLike(req,res){
+  try{
+    let user = await User.findById(req.body.user)
+    if(!user.likes.includes(req.body.postId)){
+      user.likes.push(req.body.postId)
+      await user.save()
+      res.status(200).json(user)
+    }else{
+      res.status(400).json('Bad Credentials');
+    }
+  }catch(err){
+    res.status(400).json('Bad Credentials');
+  }
+}
+
