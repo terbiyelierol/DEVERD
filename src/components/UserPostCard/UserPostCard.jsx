@@ -46,5 +46,3 @@ export default function UserPostCard(props){
     </div>
   )
 }
-
-{/* <Link to={`${props.data._id}/edit`}></Link> */}

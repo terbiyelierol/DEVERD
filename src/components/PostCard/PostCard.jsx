@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function PostCard (props){
   const navigate = useNavigate()
+  
   async function bookMark(id,userId) { 
     try{
       let fetchBookMark = await fetch(`/api/users/bookMark`,{

@@ -3,7 +3,7 @@ import '../DashBoard/DashBoard.css'
 import UserNavBar from "../../components/UserNavBar/UserNavBar";
 import UserPostCard from "../../components/UserPostCard/UserPostCard";
 import { useState,useEffect } from "react";
-import {useParams} from 'react-router-dom'
+import {useParams,Link} from 'react-router-dom'
 
 
 
@@ -41,9 +41,9 @@ export default function DashBoard(props){
             {userPosts.map((userPost,i)=><UserPostCard key={i} getSinglePosts={props.getSinglePosts} data={userPost} userPosts={userPosts} user={props.user} getAllPost={getUserPosts}/>)}
           </div>
           <div className="col-5">
-            <button className="btn btn-dark text-light">Like Posts</button>
+            <Link to={`/${props.user.username}/likeposts`}><button className="btn btn-dark text-light">Like Posts</button></Link>
             <br/>
-            <button className="btn btn-dark text-light mt-5">BookMarks</button>
+            <Link to={`/${props.user.username}/bookmarks`}><button className="btn btn-dark text-light mt-5">BookMarks</button></Link>
           </div>
         </main>
     </div>

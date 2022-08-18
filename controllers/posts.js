@@ -59,7 +59,6 @@ async function postDelete(req,res){
   try{
     const idPost = req.params.id
     let posts = await Post.findByIdAndDelete(idPost)
-    console.log(posts)
     res.status(200).json(posts)
   }catch(err){
     res.status(400).json(err);
@@ -71,7 +70,6 @@ async function postEditShow(req,res){
   try{
     const idPost = req.params.id
     let postShow = await Post.findById(idPost)
-    console.log(postShow)
     res.status(200).json(postShow)
   }catch(err){
     res.status(400).json(err);
@@ -82,7 +80,6 @@ async function postEdit(req,res){
   try{
     const idPost = req.params.id
     let postShow = await Post.findByIdAndUpdate(idPost,req.body)
-    console.log(postShow)
     res.status(200).json(postShow)
   }catch(err){
     res.status(400).json(err);
@@ -98,7 +95,6 @@ async function postLikes(req,res){
     if(!post.likedBy.includes(req.body.user)){
       post.likedBy.push(user)
       await post.save()
-      console.log(post)
       res.status(200).json(post)
     }else{
       res.status(400).json('Bad Credential');

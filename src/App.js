@@ -8,6 +8,8 @@ import CreateUser from './pages/CreateUser/CreateUser';
 import CreatePost from './pages/CreatePost/CreatePost';
 import PostPage from './pages/PostPage/PostPage';
 import EditPost from './pages/EditPost/EditPost'
+import BookMarkPage from './pages/BookMarkPage/BookMarkPage'
+import LikePostPage from './pages/LikePostPage/LikePostPage'
 import { Route, Routes } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom'
 import {useParams} from 'react-router-dom'
@@ -56,6 +58,8 @@ function App() {
         <Route path=':username' element={<DashBoard getSinglePosts={getSinglePosts} user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username/:id' element={<PostPage user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username/:id/edit' element={<EditPost user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
+        <Route path=':username/bookmarks' element={<BookMarkPage user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
+        <Route path=':username/likeposts' element={<LikePostPage user={user} userLog={userLog} singlePosts={singlePosts} handleLogOut={handleLogOut}/>}/>
      </Routes> 
     </div>
   );
