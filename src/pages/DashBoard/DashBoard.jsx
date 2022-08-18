@@ -28,6 +28,7 @@ export default function DashBoard(props){
       setUserPosts(response)
   }
 
+
     
   useEffect(() => {
     getUserPosts()
@@ -41,7 +42,7 @@ export default function DashBoard(props){
             {userPosts.map((userPost,i)=><UserPostCard key={i} getSinglePosts={props.getSinglePosts} data={userPost} userPosts={userPosts} user={props.user} getAllPost={getUserPosts}/>)}
           </div>
           <div className="col-5">
-            <Link to={`/${props.user.username}/likeposts`}><button className="btn btn-dark text-light">Like Posts</button></Link>
+            <Link to={`/${props.user.username}/likeposts`}><button onClick={()=>props.getUserLikePosts(param.username,userToken)} className="btn btn-dark text-light">Like Posts</button></Link>
             <br/>
             <Link to={`/${props.user.username}/bookmarks`}><button className="btn btn-dark text-light mt-5">BookMarks</button></Link>
           </div>

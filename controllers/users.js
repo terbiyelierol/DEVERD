@@ -8,7 +8,8 @@ module.exports = {
   create,
   login,
   postBookMark,
-  postLike
+  postLike,
+  userLikePosts
 }
 async function create(req, res) {
   try {
@@ -66,6 +67,19 @@ async function postLike(req,res){
     }else{
       res.status(400).json('Bad Credentials');
     }
+  }catch(err){
+    res.status(400).json('Bad Credentials');
+  }
+}
+
+async function userLikePosts(req,res){
+  console.log(req.user._id)
+  try{
+    let user = await User.findById(req.user._id).populate('likes')
+    console.log(user)
+    // let userLikes = await user.likes.populate('likes')
+    // console.log(userLikes)
+    res.status(200).json(user)
   }catch(err){
     res.status(400).json('Bad Credentials');
   }

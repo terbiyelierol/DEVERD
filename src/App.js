@@ -19,7 +19,9 @@ import {useParams} from 'react-router-dom'
 function App() {
   const [user,setUser] = useState(null)
   const [singlePosts,setSinglePosts] = useState([])
+  let [userLikes,setUserLikes] = useState(null)
   const param = useParams() 
+  let userToken = localStorage.getItem('token')
 
   const userLog = (incomingUser) =>{
     setUser(incomingUser)
@@ -45,6 +47,24 @@ function App() {
     setSinglePosts(response)
     navigate(`../${user.username}/${singlePosts._id}/edit`)
   }
+
+
+  async function getUserLikePosts(user,token) {
+
+    let fetchLikeResponse = await fetch(`/api/users/${user}/likeposts`,{
+      method: 'GET',
+      headers: { 
+        // "Content-Type": "application/json",
+        'Authorization':'Bearer '+ token },
+    }
+    )
+    let response =  await fetchLikeResponse.json()
+    let mapRes = response.likes.map(like=>setUserLikes(like))
+    console.log(mapRes)
+    
+    
+}
+
  
   
   return (
@@ -55,11 +75,11 @@ function App() {
         <Route path='/createuser' element={<CreateUser user={user} userLog={userLog}/>}/>
         <Route path='/main' element={<Main user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path='/createpost' element={<CreatePost user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
-        <Route path=':username' element={<DashBoard getSinglePosts={getSinglePosts} user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
+        <Route path=':username' element={<DashBoard getUserLikePosts={getUserLikePosts} getSinglePosts={getSinglePosts} user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username/:id' element={<PostPage user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username/:id/edit' element={<EditPost user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username/bookmarks' element={<BookMarkPage user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
-        <Route path=':username/likeposts' element={<LikePostPage user={user} userLog={userLog} singlePosts={singlePosts} handleLogOut={handleLogOut}/>}/>
+        <Route path=':username/likeposts' element={<LikePostPage userLikes={userLikes} user={user} userLog={userLog} singlePosts={singlePosts} handleLogOut={handleLogOut}/>}/>
      </Routes> 
     </div>
   );
