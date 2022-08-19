@@ -12,6 +12,7 @@ import { useParams,useNavigate } from "react-router-dom";
 export default function PostPage (props){
 
   let [singlePosts, setSinglePosts] = useState([])
+  let [username,setUserName] = useState(null)
   const param = useParams()
   const navigate = useNavigate()
 
@@ -25,12 +26,12 @@ export default function PostPage (props){
           body:param.id },
       })
       let response =  await fetchResponse.json()
-      console.log(response)
+      console.log(response.createdBy.username)
       setSinglePosts(response)
+      setUserName(response.createdBy.username)
       
   }
 
-  console.log(singlePosts)
   useEffect(() => {
     getSinglePosts()
   }, [])
@@ -38,7 +39,7 @@ export default function PostPage (props){
   return(
     <>
       <UserNavBar user = {props.user}/>
-      <PostShow singlePosts={singlePosts} />
+      <PostShow singlePosts={singlePosts} username={username}/>
     </>
   )
 }

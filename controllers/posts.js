@@ -46,8 +46,10 @@ async function postShow(req,res){
   try{
     const idPost = req.params.id
     let posts = await Post.findById(idPost)
-    console.log(posts)
-    res.status(200).json(posts)
+    let createdBy = await Post.findById(idPost).populate('createdBy')
+    console.log(createdBy,'createdby')
+    console.log(posts,'poost')
+    res.status(200).json(createdBy)
   }catch(err){
     res.status(400).json(err);
   }

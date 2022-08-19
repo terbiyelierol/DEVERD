@@ -29,6 +29,9 @@ export default function UserNavBar(props){
                 <li className="nav-item">
                   <Link to={`/${props.user.username}`}><button className="btn btn-outline-primary">DashBoard</button></Link>
                 </li>
+                <li className="nav-item">
+                  <Link to={`/${props.user.username}`}><button className="btn btn-outline-primary">Messages</button></Link>
+                </li>
               </ul>
             </div>
           </div>
