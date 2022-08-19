@@ -6,7 +6,7 @@ export default function BookMarkPage(props){
   return(
     <div>
       <UserNavBar user = {props.user}/>
-      <BookMarkPostCard/>
+      {props.userBookMarks.map((userBookMark,i)=><BookMarkPostCard key={i} data={userBookMark} />)}
     </div>
   )
 }

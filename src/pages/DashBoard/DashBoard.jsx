@@ -44,7 +44,7 @@ export default function DashBoard(props){
           <div className="col-5">
             <Link to={`/${props.user.username}/likeposts`}><button onClick={()=>props.getUserLikePosts(param.username,userToken)} className="btn btn-dark text-light">Like Posts</button></Link>
             <br/>
-            <Link to={`/${props.user.username}/bookmarks`}><button className="btn btn-dark text-light mt-5">BookMarks</button></Link>
+            <Link to={`/${props.user.username}/bookmarks`}><button onClick={()=>props.getUserBookMarks(param.username,userToken)} className="btn btn-dark text-light mt-5">BookMarks</button></Link>
           </div>
         </main>
     </div>

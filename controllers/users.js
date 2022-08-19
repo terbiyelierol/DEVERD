@@ -9,7 +9,8 @@ module.exports = {
   login,
   postBookMark,
   postLike,
-  userLikePosts
+  userLikePosts,
+  userBookMarkPosts
 }
 async function create(req, res) {
   try {
@@ -75,13 +76,25 @@ async function postLike(req,res){
 async function userLikePosts(req,res){
   console.log(req.user._id)
   try{
-    let user = await User.findById(req.user._id).populate('likes')
+    let user = await User.find({_id:req.user._id}).populate('likes')
     console.log(user)
     // let userLikes = await user.likes.populate('likes')
-    // console.log(userLikes)
+    
     res.status(200).json(user)
   }catch(err){
     res.status(400).json('Bad Credentials');
   }
 }
 
+async function userBookMarkPosts(req,res){
+  console.log(req.user._id)
+  try{
+    // let user = await User.findById(req.user._id)
+    let user = await User.find({_id:req.user._id}).populate('bookmarks')
+    console.log(user)
+    // console.log(user.bookmarks)
+    res.status(200).json(user)
+  }catch(err){
+    res.status(400).json('Bad Credentials');
+  }
+}
