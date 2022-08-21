@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import axios from "axios";
+import UserNavBar from "../../components/UserNavBar/UserNavBar";
 
 export default function MessagePage(props){
-  const [conversation,SetConversation] = useState([])
-
+  const [conversations,SetConversations] = useState([])
+  console.log(conversations)
   useEffect(()=>{
     const getConversation = async ()=>{
       try{
         const response = await axios.get(`/api/conversations/${props.user._id}`)
-        console.log(response)
+        SetConversations(response.data)
       }catch(err){
         console.log(err)
       }
@@ -18,26 +19,11 @@ export default function MessagePage(props){
   },[props.user._id])
   return(
     <div className="MessagePage">
-      <MessageBox/>
+      <UserNavBar user={props.user}/>
+      {conversations.map((c,i)=><MessageBox key={i} conversation={c} userId={props.user}/>)}
     </div>
   )
 }
-
-// try {
-//   // 1. POST our post user info to the server
-//   const createRoomResponse = await fetch('/api/conversations', {
-//     method: 'POST',
-//     headers: {"Content-Type": "application/json"},
-//     body: JSON.stringify({senderId,receiverId})
-//   })
-//   // 2. Check "fetchResponse.ok". False means status code was 4xx from the server/controller action
-//   if (!createRoomResponse.ok) throw new Error('Fetch failed - Bad request')   
-//   let fetchcreateRoomResponseResponse = await createRoomResponse.json()
-//   console.log('Success',fetchcreateRoomResponseResponse)
-//   setConverId(fetchcreateRoomResponseResponse._id)
-
-// } catch (err) {
-//   console.log("SignupForm error", err)
-// }
-// navigate(`../conversations`)
-// }
+// {conversations.map((c) => {
+//   <MessageBox conversation={c}/>
+// })}

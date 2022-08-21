@@ -19,11 +19,11 @@ async function create(req, res) {
 }
 
 async function getUserId(req, res) {
-  console.log(req.body)
+  console.log(req.params)
   try {
     const conversation = await Conversation.find({
       users:{ $in:[req.params.userId]}
-    })
+    }).populate('users')
     res.status(200).json(conversation);
   } catch (err) {
     res.status(400).json(err);
