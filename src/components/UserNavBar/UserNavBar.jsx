@@ -30,7 +30,7 @@ export default function UserNavBar(props){
                   <Link to={`/${props.user.username}`}><button className="btn btn-outline-primary">DashBoard</button></Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={`/${props.user.username}`}><button className="btn btn-outline-primary">Messages</button></Link>
+                  <Link to={`/conversations/${props.user._id}`}><button className="btn btn-outline-primary">Messages</button></Link>
                 </li>
               </ul>
             </div>

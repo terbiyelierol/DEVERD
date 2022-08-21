@@ -10,6 +10,8 @@ import PostPage from './pages/PostPage/PostPage';
 import EditPost from './pages/EditPost/EditPost'
 import BookMarkPage from './pages/BookMarkPage/BookMarkPage'
 import LikePostPage from './pages/LikePostPage/LikePostPage'
+import ConverstationPage from './pages/ConversationPage/ConversationPage'
+import MessagePage from './pages/MessagePage/MessagePage';
 import { Route, Routes } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom'
 
@@ -19,6 +21,7 @@ function App() {
   const [user,setUser] = useState(null)
   const [singlePosts,setSinglePosts] = useState([])
   let [userLikes,setUserLikes] = useState([])
+  let [converId,setConverId] = useState(null)
   let [userBookMarks,setUserBookMarks] = useState([])
 
   const userLog = (incomingUser) =>{
@@ -81,6 +84,28 @@ async function getUserBookMarks(user,token) {
   
 }
 
+const createRoom = async(senderId,receiverId)=>{
+  console.log(senderId,receiverId)
+  try {
+    // 1. POST our post user info to the server
+    const createRoomResponse = await fetch('/api/conversations', {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({senderId,receiverId})
+    })
+    // 2. Check "fetchResponse.ok". False means status code was 4xx from the server/controller action
+    if (!createRoomResponse.ok) throw new Error('Fetch failed - Bad request')   
+    let fetchcreateRoomResponseResponse = await createRoomResponse.json()
+    console.log('Success',fetchcreateRoomResponseResponse)
+    setConverId(fetchcreateRoomResponseResponse._id)
+
+  } catch (err) {
+    console.log("SignupForm error", err)
+  }
+  navigate(`../conversations`)
+}
+console.log(converId)
+
   
   return (
     <div className="App">
@@ -88,13 +113,15 @@ async function getUserBookMarks(user,token) {
         <Route path='/' element={<Landing user={user}/>}/>
         <Route path='/login' element={<Login user={user} userLog={userLog}/>}/>
         <Route path='/createuser' element={<CreateUser user={user} userLog={userLog}/>}/>
-        <Route path='/main' element={<Main user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
-        <Route path='/createpost' element={<CreatePost user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
-        <Route path=':username' element={<DashBoard getUserBookMarks={getUserBookMarks} getUserLikePosts={getUserLikePosts} getSinglePosts={getSinglePosts} user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
-        <Route path=':username/:id' element={<PostPage user={user} userLog={userLog} handleLogOut={handleLogOut}/>}/>
-        <Route path=':username/:id/edit' element={<EditPost user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
+        <Route path='/main' element={<Main user={user} handleLogOut={handleLogOut}/>}/>
+        <Route path='/createpost' element={<CreatePost user={user}  handleLogOut={handleLogOut}/>}/>
+        <Route path=':username' element={<DashBoard getUserBookMarks={getUserBookMarks} getUserLikePosts={getUserLikePosts} getSinglePosts={getSinglePosts} user={user}  handleLogOut={handleLogOut}/>}/>
+        <Route path=':username/:id' element={<PostPage  createRoom={createRoom} user={user} handleLogOut={handleLogOut}/>}/>
+        <Route path=':username/:id/edit' element={<EditPost user={user} singlePosts={singlePosts}  handleLogOut={handleLogOut}/>}/>
         <Route path=':username/bookmarks' element={<BookMarkPage userBookMarks={userBookMarks}  user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
-        <Route path=':username/likeposts' element={<LikePostPage userLikes={userLikes} user={user} userLog={userLog} singlePosts={singlePosts} handleLogOut={handleLogOut}/>}/>
+        <Route path=':username/likeposts' element={<LikePostPage userLikes={userLikes} user={user}  singlePosts={singlePosts} handleLogOut={handleLogOut}/>}/>
+        <Route path='/conversations' element={<ConverstationPage converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
+        <Route path='/conversations/:userId' element={<MessagePage converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
      </Routes> 
     </div>
   );

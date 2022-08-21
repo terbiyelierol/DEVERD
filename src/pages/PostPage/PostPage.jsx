@@ -13,6 +13,7 @@ export default function PostPage (props){
 
   let [singlePosts, setSinglePosts] = useState([])
   let [username,setUserName] = useState(null)
+  let [createdById,setCreatedById] = useState(null)
   const param = useParams()
   const navigate = useNavigate()
 
@@ -29,6 +30,7 @@ export default function PostPage (props){
       console.log(response.createdBy.username)
       setSinglePosts(response)
       setUserName(response.createdBy.username)
+      setCreatedById(response.createdBy._id)
       
   }
 
@@ -39,7 +41,7 @@ export default function PostPage (props){
   return(
     <>
       <UserNavBar user = {props.user}/>
-      <PostShow singlePosts={singlePosts} username={username}/>
+      <PostShow singlePosts={singlePosts} username={username} createdById={createdById} user = {props.user} createRoom={props.createRoom}/>
     </>
   )
 }
