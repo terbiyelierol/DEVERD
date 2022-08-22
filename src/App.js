@@ -23,12 +23,16 @@ function App() {
   let [userLikes,setUserLikes] = useState([])
   let [converId,setConverId] = useState(null)
   let [userBookMarks,setUserBookMarks] = useState([])
+  // let [friend,setFriend] = useState(null)
+
 
   const userLog = (incomingUser) =>{
     setUser(incomingUser)
   }
 
-console.log(userLikes)
+  // const friendId =(incomingFriend)=>{
+  //   setFriend(incomingFriend)
+  // }
   
   const navigate = useNavigate()
 
@@ -88,21 +92,20 @@ const createRoom = async(senderId,receiverId)=>{
   console.log(senderId,receiverId)
   try {
     // 1. POST our post user info to the server
-    const createRoomResponse = await fetch('/api/conversations', {
+    const createRoomResponse = await fetch('/api/conversations/:roomId', {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({senderId,receiverId})
     })
     // 2. Check "fetchResponse.ok". False means status code was 4xx from the server/controller action
     if (!createRoomResponse.ok) throw new Error('Fetch failed - Bad request')   
-    let fetchcreateRoomResponseResponse = await createRoomResponse.json()
-    console.log('Success',fetchcreateRoomResponseResponse)
-    setConverId(fetchcreateRoomResponseResponse._id)
-
+    let fetchcreateRoomResponse = await createRoomResponse.json()
+    console.log('Success',fetchcreateRoomResponse)
+    setConverId(fetchcreateRoomResponse._id)
+    navigate(`../conversations/${fetchcreateRoomResponse._id}`)
   } catch (err) {
     console.log("SignupForm error", err)
   }
-  navigate(`../conversations`)
 }
 console.log(converId)
 
@@ -120,11 +123,14 @@ console.log(converId)
         <Route path=':username/:id/edit' element={<EditPost user={user} singlePosts={singlePosts}  handleLogOut={handleLogOut}/>}/>
         <Route path=':username/bookmarks' element={<BookMarkPage userBookMarks={userBookMarks}  user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username/likeposts' element={<LikePostPage userLikes={userLikes} user={user}  singlePosts={singlePosts} handleLogOut={handleLogOut}/>}/>
-        <Route path='/conversations' element={<ConverstationPage converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
-        <Route path='/conversations/:userId' element={<MessagePage converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
+        <Route path={`/conversations/${converId}`} element={<ConverstationPage converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
+        <Route path={`/conversations/:userId`} element={<MessagePage  user={user}  handleLogOut={handleLogOut}/>}/>
+        {/* <Route path={`/messages/${converId}`} element={<ConverstationPage converId={converId} user={user}  handleLogOut={handleLogOut}/>}/> */}
      </Routes> 
     </div>
   );
 }
+
+// friendId={friendId}
 
 export default App;

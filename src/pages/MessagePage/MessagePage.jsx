@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import MessageBox from "../../components/MessageBox/MessageBox";
 import axios from "axios";
 import UserNavBar from "../../components/UserNavBar/UserNavBar";
 
 export default function MessagePage(props){
   const [conversations,SetConversations] = useState([])
-  console.log(conversations)
+  
+
   useEffect(()=>{
     const getConversation = async ()=>{
       try{
@@ -20,7 +22,9 @@ export default function MessagePage(props){
   return(
     <div className="MessagePage">
       <UserNavBar user={props.user}/>
+      <div>
       {conversations.map((c,i)=><MessageBox key={i} conversation={c} userId={props.user}/>)}
+      </div>
     </div>
   )
 }
