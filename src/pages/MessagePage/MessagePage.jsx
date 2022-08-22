@@ -6,8 +6,6 @@ import UserNavBar from "../../components/UserNavBar/UserNavBar";
 
 export default function MessagePage(props){
   const [conversations,SetConversations] = useState([])
-  
-
   useEffect(()=>{
     const getConversation = async ()=>{
       try{

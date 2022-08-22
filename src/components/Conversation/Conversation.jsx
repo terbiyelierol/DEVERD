@@ -1,13 +1,12 @@
 import React from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState,useEffect  } from "react";
+import { useNavigate} from "react-router-dom";
+import axios from "axios";
 
 export default function Conversation(props){
 
-
-
   const [newMessage,setNewMessage] = useState({
-    conversationId: props.converId,
+    conversationId: props.friend,
     sender: props.userId._id,
     text:"",
   })
@@ -28,7 +27,7 @@ export default function Conversation(props){
       let fetchMessageResponse = await messageResponse.json()
       console.log('Success',fetchMessageResponse)
       setNewMessage({
-        conversationId: props.converId,
+        conversationId: props.friend,
         sender: props.userId._id,
         text:"",
       })
@@ -38,7 +37,22 @@ export default function Conversation(props){
       setNewMessage({ error: 'Sign Up Failed - Try Again' });
     }
   }
-  console.log(newMessage)
+
+  const [messagesAll,SetMessagesAll] = useState([])
+  
+  useEffect(()=>{
+    const getMessagesAll = async ()=>{
+      try{
+        const response = await axios.get(`/api/messages/${props.friend}`)
+        console.log(response)
+        //  SetMessagesAll(response.data)
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getMessagesAll()
+  },[props.friend])
+  
   return(
     <main className="Conversation">
           <div className="col-1 mt-5">
