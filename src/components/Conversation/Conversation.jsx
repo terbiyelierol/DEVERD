@@ -39,25 +39,23 @@ export default function Conversation(props){
   }
 
   const [messagesAll,SetMessagesAll] = useState([])
-  
+  console.log(messagesAll)
   useEffect(()=>{
     const getMessagesAll = async ()=>{
       try{
         const response = await axios.get(`/api/messages/${props.friend}`)
         console.log(response)
-        //  SetMessagesAll(response.data)
+         SetMessagesAll(response.data)
       }catch(err){
         console.log(err)
       }
     }
     getMessagesAll()
   },[props.friend])
-  
+  // <small>{message.sender.username}</small>
   return(
     <main className="Conversation">
-          <div className="col-1 mt-5">
-            <p>asd;ljasdklasjkdlkjaskldjaskdjlkasjdlkjaskdljaksdjlkjdlkasjdasdjaskdjaksdlkasjlksjlasdljalkasjdlkajdlkajskdljaksdjlajdlasjdlkajsdlkjsakdljlkajsdlkjalksdjalksjdlajsdlkajsdlkjaksdljalkjd</p>
-          </div>
+        {messagesAll.map((message)=><p>{message.text}<br/><small>{message.sender.username}</small><hr/></p>)}
       <form className="row g-3" onSubmit={handleMessage} >
           <div className="col-md-6 " >
               <label for="text" className="form-label"></label>
