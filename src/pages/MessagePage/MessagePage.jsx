@@ -23,7 +23,7 @@ export default function MessagePage(props){
     <div className="MessagePage">
       <UserNavBar user={props.user}/>
       <div>
-      {conversations.map((c,i)=><MessageBox key={i} conversation={c} userId={props.user}/>)}
+      {conversations.map((c,i)=><MessageBox key={i} friend={props.friendId} conversation={c} userId={props.user}/>)}
       </div>
     </div>
   )

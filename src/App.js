@@ -23,16 +23,16 @@ function App() {
   let [userLikes,setUserLikes] = useState([])
   let [converId,setConverId] = useState(null)
   let [userBookMarks,setUserBookMarks] = useState([])
-  // let [friend,setFriend] = useState(null)
+  let [friend,setFriend] = useState(null)
 
 
   const userLog = (incomingUser) =>{
     setUser(incomingUser)
   }
 
-  // const friendId =(incomingFriend)=>{
-  //   setFriend(incomingFriend)
-  // }
+  const friendId =(incomingFriend)=>{
+    setFriend(incomingFriend)
+  }
   
   const navigate = useNavigate()
 
@@ -92,7 +92,7 @@ const createRoom = async(senderId,receiverId)=>{
   console.log(senderId,receiverId)
   try {
     // 1. POST our post user info to the server
-    const createRoomResponse = await fetch('/api/conversations/:roomId', {
+    const createRoomResponse = await fetch('/api/conversations', {
       method: 'POST',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({senderId,receiverId})
@@ -124,8 +124,8 @@ console.log(converId)
         <Route path=':username/bookmarks' element={<BookMarkPage userBookMarks={userBookMarks}  user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username/likeposts' element={<LikePostPage userLikes={userLikes} user={user}  singlePosts={singlePosts} handleLogOut={handleLogOut}/>}/>
         <Route path={`/conversations/${converId}`} element={<ConverstationPage converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
-        <Route path={`/conversations/:userId`} element={<MessagePage  user={user}  handleLogOut={handleLogOut}/>}/>
-        {/* <Route path={`/messages/${converId}`} element={<ConverstationPage converId={converId} user={user}  handleLogOut={handleLogOut}/>}/> */}
+        <Route path={`/conversations/:userId`} element={<MessagePage friendId={friendId}  user={user}  handleLogOut={handleLogOut}/>}/>
+        <Route path={`/conversations/:userId/${friend}`} element={<ConverstationPage converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
      </Routes> 
     </div>
   );
