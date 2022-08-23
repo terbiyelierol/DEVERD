@@ -6,7 +6,7 @@ import axios from "axios";
 export default function Conversation(props){
 
   const [newMessage,setNewMessage] = useState({
-    conversationId: props.friend,
+    conversationId: props.converId,
     sender: props.userId._id,
     text:"",
   })
@@ -27,7 +27,7 @@ export default function Conversation(props){
       let fetchMessageResponse = await messageResponse.json()
       console.log('Success',fetchMessageResponse)
       setNewMessage({
-        conversationId: props.friend,
+        conversationId: props.converId,
         sender: props.userId._id,
         text:"",
       })
@@ -43,7 +43,7 @@ export default function Conversation(props){
   useEffect(()=>{
     const getMessagesAll = async ()=>{
       try{
-        const response = await axios.get(`/api/messages/${props.friend}`)
+        const response = await axios.get(`/api/messages/${props.converId}`)
         console.log(response)
          SetMessagesAll(response.data)
       }catch(err){
@@ -51,7 +51,7 @@ export default function Conversation(props){
       }
     }
     getMessagesAll()
-  },[props.friend])
+  },[newMessage])
   // <small>{message.sender.username}</small>
   return(
     <main className="Conversation">

@@ -31,7 +31,7 @@ function App() {
   }
 
   const friendId =(incomingFriend)=>{
-    setFriend(incomingFriend)
+    setConverId(incomingFriend)
   }
   console.log(friend)
   
@@ -126,7 +126,7 @@ console.log(converId)
         <Route path=':username/likeposts' element={<LikePostPage userLikes={userLikes} user={user}  singlePosts={singlePosts} handleLogOut={handleLogOut}/>}/>
         <Route path={`/conversations/${converId}`} element={<ConverstationPage  friend={friend} converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
         <Route path={`/conversations/:userId`} element={<MessagePage friendId={friendId}  user={user}  handleLogOut={handleLogOut}/>}/>
-        <Route path={`/conversations/:userId/${friend}`} element={<ConverstationPage friend={friend} converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
+        <Route path={`/conversations/:userId/${converId}`} element={<ConverstationPage friend={friend} converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
      </Routes> 
     </div>
   );
