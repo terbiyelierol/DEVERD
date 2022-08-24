@@ -53,7 +53,6 @@ function App() {
         body:iden },
     })
     let response =  await fetchResponse.json()
-    console.log(response)
     setSinglePosts(response)
     navigate(`../${user}/${pro}/edit`)
   }
@@ -69,7 +68,6 @@ function App() {
     }
     )
     let response =  await fetchLikeResponse.json()
-    console.log(response[0].likes)
 
     setUserLikes(response[0].likes)    
     
@@ -85,14 +83,12 @@ async function getUserBookMarks(user,token) {
   }
   )
   let response =  await fetchBookResponse.json()
-  console.log(response)
 
   setUserBookMarks(response[0].bookmarks)    
   
 }
 
 const createRoom = async(senderId,receiverId)=>{
-  console.log(senderId,receiverId)
   try {
     // 1. POST our post user info to the server
     const createRoomResponse = await fetch('/api/conversations', {

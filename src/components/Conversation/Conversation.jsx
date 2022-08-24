@@ -15,15 +15,11 @@ export default function Conversation(props){
   })
   const [messagesAll,setMessagesAll] = useState([])
   const [arrivalMessage,setArrivalMessage] = useState(null)
-  console.log(arrivalMessage)
-  console.log(messagesAll)
-  console.log(newMessage)
 
 
   useEffect(()=>{
     socket.current = io.connect("http://localhost:3001")
     socket.current.on("getMessage",(data)=>{
-      console.log(data)
       setArrivalMessage({
         sender: data.senderId,
         text:data.text,

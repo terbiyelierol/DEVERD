@@ -8,11 +8,6 @@ export default function EditCard (props){
     title: props.singlePosts.title,
     body: props.singlePosts.body,
   })
-
-  
-
-  console.log(newPost)
-
   const navigate = useNavigate()
   const param = useParams()
 

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 export default function MessageBox({conversation,userId,friend}){
   const friendId = conversation.users.find((u)=>u._id !== userId._id)
-  console.log(friendId)
   return(
     <div className="MessageBox col-6 mt-5">
     <div className="card text-center">

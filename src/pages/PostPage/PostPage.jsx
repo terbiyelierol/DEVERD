@@ -27,7 +27,6 @@ export default function PostPage (props){
           body:param.id },
       })
       let response =  await fetchResponse.json()
-      console.log(response.createdBy.username)
       setSinglePosts(response)
       setUserName(response.createdBy.username)
       setCreatedById(response.createdBy._id)

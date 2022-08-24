@@ -5,9 +5,12 @@ module.exports = {
   getUserId
 }
 
+// if(await Conversation.users.includes(req.body.senderId&&req.body.receiverId)){}
+
 //new room
 async function create(req, res) {
-  const newConversation = new Conversation({
+      console.log(Conversation,"All Conversations")
+    const newConversation = new Conversation({
     users: [req.body.senderId, req.body.receiverId],
   });
   try {
