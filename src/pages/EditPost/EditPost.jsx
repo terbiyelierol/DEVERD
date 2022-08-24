@@ -6,7 +6,6 @@ import { useState } from "react";
 export default function EditPost(props){
 
   const param = useParams()
-  console.log(props.singlePosts)
   
   return(
     <>

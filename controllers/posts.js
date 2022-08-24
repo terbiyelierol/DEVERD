@@ -47,8 +47,6 @@ async function postShow(req,res){
     const idPost = req.params.id
     let posts = await Post.findById(idPost)
     let createdBy = await Post.findById(idPost).populate('createdBy')
-    console.log(createdBy,'createdby')
-    console.log(posts,'poost')
     res.status(200).json(createdBy)
   }catch(err){
     res.status(400).json(err);
@@ -57,7 +55,6 @@ async function postShow(req,res){
 
 
 async function postDelete(req,res){
-  console.log(req.params.id)
   try{
     const idPost = req.params.id
     let posts = await Post.findByIdAndDelete(idPost)
@@ -68,7 +65,6 @@ async function postDelete(req,res){
 }
 
 async function postEditShow(req,res){
-  console.log(req.params.id)
   try{
     const idPost = req.params.id
     let postShow = await Post.findById(idPost)
@@ -89,11 +85,9 @@ async function postEdit(req,res){
 }
 
 async function postLikes(req,res){
-  console.log(req.body)
   try{
     let user = await User.findById(req.body.user)
     let post = await Post.findById(req.body.postId)
-    console.log(post)
     if(!post.likedBy.includes(req.body.user)){
       post.likedBy.push(user)
       await post.save()

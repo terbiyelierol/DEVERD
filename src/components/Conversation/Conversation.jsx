@@ -2,21 +2,54 @@ import React from "react";
 import { useState,useEffect  } from "react";
 import { useNavigate} from "react-router-dom";
 import axios from "axios";
+import { useRef } from 'react';
+import {io} from "socket.io-client"
 
 export default function Conversation(props){
+  const socket = useRef()
 
   const [newMessage,setNewMessage] = useState({
     conversationId: props.converId,
     sender: props.userId._id,
     text:"",
   })
+  const [messagesAll,setMessagesAll] = useState([])
+  const [arrivalMessage,setArrivalMessage] = useState(null)
 
-  const navigate = useNavigate()
+
+  useEffect(()=>{
+    socket.current = io.connect("http://localhost:3001")
+    socket.current.on("getMessage",(data)=>{
+      setArrivalMessage({
+        sender: data.senderId,
+        text:data.text,
+      })
+    })
+  },[]);
+
+  // useEffect(()=>{
+  //   arrivalMessage && messagesAll?.sender._id.includes(arrivalMessage.sender)&&
+  //   setMessagesAll((prev)=> [...prev,arrivalMessage])
+  // },[arrivalMessage,messagesAll])
+
+  useEffect(()=>{
+    socket.current.emit("sendUser",props.userId._id)
+    socket.current.on("getUsers",users=>{
+      console.log(users)
+    })
+  },[props.userId])
 
   const handleMessage = async(evt)=>{
     evt.preventDefault()
+
+    socket.current.emit("sendMessage",{
+      senderId:props.userId._id,
+      receiverId:props.cross._id,
+      text:newMessage.text
+    })
+         
     try {
-     
+
       const messageResponse = await fetch('/api/messages', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
@@ -38,20 +71,18 @@ export default function Conversation(props){
     }
   }
 
-  const [messagesAll,SetMessagesAll] = useState([])
-  console.log(messagesAll)
+
   useEffect(()=>{
     const getMessagesAll = async ()=>{
       try{
         const response = await axios.get(`/api/messages/${props.converId}`)
-        console.log(response)
-         SetMessagesAll(response.data)
+         setMessagesAll(response.data)
       }catch(err){
         console.log(err)
       }
     }
     getMessagesAll()
-  },[newMessage])
+  },[newMessage,arrivalMessage])
   // <small>{message.sender.username}</small>
   return(
     <main className="Conversation">
