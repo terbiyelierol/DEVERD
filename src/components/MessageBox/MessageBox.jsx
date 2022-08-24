@@ -10,7 +10,7 @@ export default function MessageBox({conversation,userId,friend}){
     <div className="MessageBox col-6 mt-5">
     <div className="card text-center">
         <div className="card-header">
-         <Link to={`/conversations/${userId._id}/${conversation._id}`}><h1 onClick={()=>{friend(conversation._id)}} className="card-title">{friendId.username}</h1></Link> 
+         <Link to={`/conversations/${userId._id}/${conversation._id}`}><h1 onClick={()=>{friend(conversation._id,friendId)}} className="card-title">{friendId.username}</h1></Link> 
         </div>
     </div>
   </div>
