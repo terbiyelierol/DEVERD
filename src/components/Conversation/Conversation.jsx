@@ -7,7 +7,7 @@ import {io} from "socket.io-client"
 
 export default function Conversation(props){
   const socket = useRef()
-  socket.current = io.connect("http://localhost:3001")
+
   const [newMessage,setNewMessage] = useState({
     conversationId: props.converId,
     sender: props.userId._id,
@@ -15,26 +15,21 @@ export default function Conversation(props){
   })
   const [messagesAll,setMessagesAll] = useState([])
   const [arrivalMessage,setArrivalMessage] = useState(null)
-  const [array,setArray] = useState()
-
   console.log(arrivalMessage)
   console.log(messagesAll)
   console.log(newMessage)
 
 
   useEffect(()=>{
-  const lastShot = ()=>{
-    socket.current.on("getMessage",async (data)=>{
+    socket.current = io.connect("http://localhost:3001")
+    socket.current.on("getMessage",(data)=>{
       console.log(data)
       setArrivalMessage({
         sender: data.senderId,
         text:data.text,
       })
-      // setSubmit(!submit)
     })
-    lastShot()
-    setMessagesAll([...messagesAll,arrivalMessage])
-  }},[arrivalMessage,props.cross._id]);
+  },[]);
 
   // useEffect(()=>{
   //   arrivalMessage && messagesAll?.sender._id.includes(arrivalMessage.sender)&&
@@ -44,17 +39,9 @@ export default function Conversation(props){
   useEffect(()=>{
     socket.current.emit("sendUser",props.userId._id)
     socket.current.on("getUsers",users=>{
-      // console.log(users)
+      console.log(users)
     })
   },[props.userId])
-
-
-
-
-
-  const navigate = useNavigate()
-
-
 
   const handleMessage = async(evt)=>{
     evt.preventDefault()
@@ -99,8 +86,7 @@ export default function Conversation(props){
       }
     }
     getMessagesAll()
-    console.log(messagesAll.length)
-  },[newMessage,messagesAll.length,arrivalMessage])
+  },[newMessage,arrivalMessage])
   // <small>{message.sender.username}</small>
   return(
     <main className="Conversation">
