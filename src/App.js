@@ -15,8 +15,6 @@ import MessagePage from './pages/MessagePage/MessagePage';
 import { Route, Routes } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom'
 
-
-
 function App() {
   const [user,setUser] = useState(null)
   const [singlePosts,setSinglePosts] = useState([])
@@ -24,16 +22,20 @@ function App() {
   let [converId,setConverId] = useState(null)
   let [userBookMarks,setUserBookMarks] = useState([])
   let [friend,setFriend] = useState(null)
+  let [cross,setCross] = useState([])
+
+
 
 
   const userLog = (incomingUser) =>{
     setUser(incomingUser)
   }
 
-  const friendId =(incomingFriend)=>{
+  const friendId =(incomingFriend,crossMember)=>{
     setConverId(incomingFriend)
+    setCross(crossMember)
   }
-  console.log(friend)
+
   
   const navigate = useNavigate()
 
@@ -51,7 +53,6 @@ function App() {
         body:iden },
     })
     let response =  await fetchResponse.json()
-    console.log(response)
     setSinglePosts(response)
     navigate(`../${user}/${pro}/edit`)
   }
@@ -67,7 +68,6 @@ function App() {
     }
     )
     let response =  await fetchLikeResponse.json()
-    console.log(response[0].likes)
 
     setUserLikes(response[0].likes)    
     
@@ -83,14 +83,12 @@ async function getUserBookMarks(user,token) {
   }
   )
   let response =  await fetchBookResponse.json()
-  console.log(response)
 
   setUserBookMarks(response[0].bookmarks)    
   
 }
 
 const createRoom = async(senderId,receiverId)=>{
-  console.log(senderId,receiverId)
   try {
     // 1. POST our post user info to the server
     const createRoomResponse = await fetch('/api/conversations', {
@@ -108,7 +106,6 @@ const createRoom = async(senderId,receiverId)=>{
     console.log("SignupForm error", err)
   }
 }
-console.log(converId)
 
   
   return (
@@ -124,9 +121,9 @@ console.log(converId)
         <Route path=':username/:id/edit' element={<EditPost user={user} singlePosts={singlePosts}  handleLogOut={handleLogOut}/>}/>
         <Route path=':username/bookmarks' element={<BookMarkPage userBookMarks={userBookMarks}  user={user} singlePosts={singlePosts} userLog={userLog} handleLogOut={handleLogOut}/>}/>
         <Route path=':username/likeposts' element={<LikePostPage userLikes={userLikes} user={user}  singlePosts={singlePosts} handleLogOut={handleLogOut}/>}/>
-        <Route path={`/conversations/${converId}`} element={<ConverstationPage  friend={friend} converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
+        <Route path={`/conversations/${converId}`} element={<ConverstationPage cross={cross} friend={friend} converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
         <Route path={`/conversations/:userId`} element={<MessagePage friendId={friendId}  user={user}  handleLogOut={handleLogOut}/>}/>
-        <Route path={`/conversations/:userId/${converId}`} element={<ConverstationPage friend={friend} converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
+        <Route path={`/conversations/:userId/${converId}`} element={<ConverstationPage cross={cross} friend={friend} converId={converId} user={user}  handleLogOut={handleLogOut}/>}/>
      </Routes> 
     </div>
   );

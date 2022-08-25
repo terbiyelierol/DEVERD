@@ -30,7 +30,6 @@ export default function NewUser(props){
       localStorage.setItem('token', token) // 4. stick the serv resp into the user's browser
 
       const userDoc = JSON.parse(atob(token.split('.')[1])).user; // 5. Decode the token + put user document into state
-      console.log(userDoc)
       props.userLog(userDoc)
       navigate('../login')
 
