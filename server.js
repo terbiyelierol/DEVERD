@@ -34,8 +34,8 @@ const server = app.listen(port, function() {
 
 const io = require("socket.io")(server,{
   cors:{
-    // origin:"*",
-    origin:"https://deverd.herokuapp.com",
+    origin:"*",
+    // origin:"https://deverd.herokuapp.com",
     methods:["GET","POST"]
   }
 })

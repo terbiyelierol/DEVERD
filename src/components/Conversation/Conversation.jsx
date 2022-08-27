@@ -18,8 +18,8 @@ export default function Conversation(props){
 
 
   useEffect(()=>{
-    // socket.current = io.connect("http://localhost:3001")
-    socket.current = io.connect("https://deverd.herokuapp.com")
+    socket.current = io.connect("http://localhost:3001")
+    // socket.current = io.connect("https://deverd.herokuapp.com")
     socket.current.on("getMessage",(data)=>{
       setArrivalMessage({
         sender: data.senderId,
